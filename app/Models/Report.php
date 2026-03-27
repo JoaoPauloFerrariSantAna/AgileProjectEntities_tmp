@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Report extends Model
+{
+	protected $table = "report_tbl";
+    protected $fillable = array("user_id", "contents", "created_at");
+}
