@@ -1,9 +1,9 @@
 <?php
 
 require_once __DIR__ . "/app_routes/user_routes.php";
-require_once __DIR__ . "/app_routes/sale_routes.php";
-require_once __DIR__ . "/app_routes/report_routes.php";
-require_once __DIR__ . "/app_routes/product_routes.php";
+require_once __DIR__ . "/app_routes/sales_routes.php";
+require_once __DIR__ . "/app_routes/reports_routes.php";
+require_once __DIR__ . "/app_routes/products_routes.php";
 
 use Routes\AppRoutes;
 

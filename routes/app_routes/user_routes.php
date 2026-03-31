@@ -1,19 +1,13 @@
 <?php
 
-namespace Routes\AppRoutes;
+require_once __DIR__ . "/../../app/Dtos/Responses/UserResponse.php";
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Enums\UserRoles;
+use App\Dtos\Responses\UserResponse;
 use App\Enums\RoutesDefaultNames;
-
-Route::get("/users/".RoutesDefaultNames::GET_ALL_ROUTE->value, function(Request $req) {
-    return response()->json(array(
-        "status" => 200,
-        "data" => User::all()
-    ));
-});
+use App\Enums\UserRoles;
+use App\Models\User;
 
 Route::post("/users/".RoutesDefaultNames::POST_ROUTE->value, function(Request $req) {
 	$user = new User();
@@ -22,16 +16,9 @@ Route::post("/users/".RoutesDefaultNames::POST_ROUTE->value, function(Request $r
 	$user->password = $req->input("passwd");
 	$user->email = $req->input("email");
 	$user->role = $req->input("role", UserRoles::ADM->value);
-
 	$user->save();
 
-	return response()->json(array(
-		"status" => 201,
-		"data" => array(
-			"name" => $user->name,
-			"password" => $user->password,
-			"email" => $user->email,
-			"role" => $user->role
-		)
-	));
+	$resp = new UserResponse($user->name,$user->password,$user->email,$user->role);
+
+	return response()->json(array("status" => 201, "data" => $resp->getResponse()));
 });
